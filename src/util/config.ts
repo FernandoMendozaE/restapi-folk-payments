@@ -2,10 +2,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default {
-  PORT: process.env.PORT || '3000',
-  POSTGRES_DATABASE: process.env.POSTGRES_DATABASE || 'paymentsdb',
-  POSTGRES_USER: process.env.POSTGRES_USER || 'root',
-  POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD || 'root',
+  PORT: process.env.PORT || '6000',
+  POSTGRES_DATABASE: process.env.POSTGRES_DATABASE || 'delivery_db',
+  POSTGRES_USER: process.env.POSTGRES_USER || 'postgres',
+  POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD || 'sa2022',
   POSTGRES_HOST: process.env.POSTGRES_HOST || 'localhost',
   POSTGRES_PORT: (process.env.POSTGRES_PORT as unknown as number) || 5434,
   INITIALIZATION_DATABASE: process.env.INITIALIZATION_DATABASE || 0,

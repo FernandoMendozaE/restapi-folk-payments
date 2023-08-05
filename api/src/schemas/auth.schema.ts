@@ -6,7 +6,7 @@ export const AuthSingUpSchema = z.object({
       username: z
         .string()
         .min(3, { message: 'Debe tener entre 5 a 12 caracteres' })
-        .max(5, { message: 'Debe tener entre 5 a 12 caracteres' }),
+        .max(12, { message: 'Debe tener entre 5 a 12 caracteres' }),
       password: z.string().min(6, 'Contraseña demasiado corta'),
       nombres: z.string().min(3).max(50),
       ap_paterno: z.string(),
@@ -25,7 +25,7 @@ export const AuthSingInSchema = z.object({
       username: z
         .string()
         .min(3, { message: 'Debe tener entre 5 a 12 caracteres' })
-        .max(5, { message: 'Debe tener entre 5 a 12 caracteres' }),
+        .max(12, { message: 'Debe tener entre 5 a 12 caracteres' }),
       password: z.string().min(5, { message: 'Debe tener 5 o más caracteres' })
     })
     .strict()

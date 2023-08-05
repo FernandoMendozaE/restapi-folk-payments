@@ -19,8 +19,8 @@ services:
       - POSTGRES_DB=root
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-    # volumes:
-    #   - ./data:/var/lib/postgresql/data
+    volumes:
+      - ./data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -43,7 +43,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
-      - INITIALIZATION_DATABASE=1
+      - INITIALIZATION_DATABASE=0
       - JWT_SECRET=1d3pr01fd
       - BCRYPT_SALT_ROUNDS=10
       - JWT_TIME_EXPIRY=365d

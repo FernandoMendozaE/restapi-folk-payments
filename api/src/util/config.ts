@@ -14,6 +14,7 @@ export default {
   JWT_TIME_EXPIRY: process.env.JWT_TIME_EXPIRY || '365d',
   AUTH_VERSION: process.env.AUTH_VERSION || '2.0.0',
 
-  HOST: process.env.HOST || `http://localhost:6001`,
-  MERCADOPAGO_API_KEY: process.env.MERCADOPAGO_API_KEY || 'asddasdasda'
+  HOST: process.env.HOST || `http://localhost:${process.env.PORT || '6000'}`,
+  MERCADOPAGO_API_KEY:
+    process.env.MERCADOPAGO_API_KEY || 'TEST-318875568195697-072609-aafed7aad86513f95f5a573d0be6e4c3-1433832360'
 }

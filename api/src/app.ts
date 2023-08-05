@@ -5,6 +5,7 @@ import cors from 'cors'
 import authRoutes from './routes/auth.routes'
 import roleRoutes from './routes/role.routes'
 import userRoutes from './routes/user.routes'
+import paymentRoutes from './routes/payment.routes'
 
 const app = express()
 
@@ -17,5 +18,6 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/api/auth', authRoutes)
 app.use('/api/roles', roleRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/payments', paymentRoutes)
 
 export default app

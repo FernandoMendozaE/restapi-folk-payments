@@ -24,8 +24,8 @@ export const AuthSingInSchema = z.object({
     .object({
       username: z
         .string()
-        .min(3, { message: 'Debe tener entre 3 a 5 caracteres' })
-        .max(5, { message: 'Debe tener entre 3 a 5 caracteres' }),
+        .min(3, { message: 'Debe tener entre 5 a 12 caracteres' })
+        .max(5, { message: 'Debe tener entre 5 a 12 caracteres' }),
       password: z.string().min(5, { message: 'Debe tener 5 o más caracteres' })
     })
     .strict()

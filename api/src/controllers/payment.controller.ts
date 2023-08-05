@@ -1,21 +1,21 @@
 import mercadopage from 'mercadopago'
 import ngrok from 'ngrok'
 
-import { HOST, MERCADOPAGO_API_KEY, PORT } from '../config.js'
-import config from '../util/config.js'
+import config from '../util/config'
+import { Request, Response } from 'express'
 
 const getNgrokUrl = async () => {
   try {
-    return await ngrok.connect(PORT) // Reemplaza 3000 con el puerto en el que tu servidor Node.js escucha
+    return await ngrok.connect(+config.PORT) // Reemplaza 3000 con el puerto en el que tu servidor Node.js escucha
   } catch (error) {
     console.error('Error al iniciar ngrok:', error)
     return null
   }
 }
 
-export const createOrder = async (req, res) => {
+export const createOrder = async (req: Request<unknown, unknown, unknown, unknown>, res: Response) => {
   mercadopage.configure({
-    access_token: MERCADOPAGO_API_KEY
+    access_token: config.MERCADOPAGO_API_KEY
   })
 
   try {
@@ -37,9 +37,9 @@ export const createOrder = async (req, res) => {
         }
       ],
       // notification_url: `${HOST}/webhook`,
-      notification_url: `${ngrokUrl}/webhook`,
+      notification_url: `${ngrokUrl}/api/payments/webhook`,
       back_urls: {
-        success: `${HOST}/success`
+        success: `${config.HOST}/api/payments/success`
         // pending: "https://0911-186-121-234-42.ngrok.io/pending",
         // failure: "https://0911-186-121-234-42.ngrok.io/failure",
       }
@@ -54,9 +54,9 @@ export const createOrder = async (req, res) => {
   }
 }
 
-export const receiveWebhook = async (req, res) => {
+export const receiveWebhook = async (req: Request<unknown, unknown, unknown, unknown>, res: Response) => {
   try {
-    const payment = req.query
+    const payment = req.query as any
     console.log(payment)
     if (payment.type === 'payment') {
       const data = await mercadopage.payment.findById(payment['data.id'])

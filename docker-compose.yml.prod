@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node
+
+  postgres:
+    # nombre del contenedor postgres
+    image: postgres # imagen postgres última versión
+    restart: always # reiniciar el contenedor
+    ports:
+      - '5438:5432' # puerto de postgres que se ejecutara (ej. cambiar puerto: otro_puerto:5432)
+    environment:
+      # variables de entorno
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+
+  pgadmin:
+    # nombre del contenedor pgadmin (interfaces de administración de postgres)
+    image: dpage/pgadmin4 # imagen pgadmin última versión
+    environment:
+      # variables de entorno
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - '8080:80'
+    depends_on:
+      # dependencia del contenedor
+      - postgres # dependencia del contenedor postgres
+
+  node:
+    build:
+      context: ./api # Ruta de la carpeta que contiene tu aplicación Node.js
+      dockerfile: Dockerfile
+    image: folkpayments
+    container_name: folkpayments
+    environment:
+      MONGODB_URI: db
+      JWT_SECRET: secret
+      CLOUD_NAME: deqnmn50h
+      API_KEY: 563721284152585
+      API_SECRET: _wyTCD42cCFarVeZSaF7REqLtgU
+    # ports:
+    #   - '3002:3000'
+    networks:
+      - backend
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=tu_bd
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=tu_password
+    volumes:
+      - ./data:/var/lib/postgresql/data
